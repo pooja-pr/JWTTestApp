@@ -5,6 +5,7 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 import { UsersModel } from './users.model';
 import { LoginService } from './login.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient,
     private loginService: LoginService,
     private toastr: ToastsManager,
-    private router: Router) { }
+    private router: Router,
+    private appService: AppService) { }
 
   ngOnInit() {
     this.user = new UsersModel();
@@ -25,8 +27,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginService.login(this.user).subscribe(userObj => {
+      console.log(userObj);
       if (!userObj.error) {
         this.user = userObj;
+        this.appService.userObj = this.user;
         this.router.navigate(['./todo']);
       } else {
         this.toastr.error('Login failed');

@@ -29,7 +29,7 @@ export class SignupService {
         }
     }
     private handleError(error: Response | any) {
-        const errorMsg = error.json()
-        return Observable.throw(error);
+        const errorMsg = error.json();
+        return errorMsg;
     }
 }

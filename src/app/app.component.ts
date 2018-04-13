@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  constructor(public toastr: ToastsManager, vcr: ViewContainerRef, private appService: AppService) {
+    this.toastr.setRootViewContainerRef(vcr);
+    this.appService.userObj = JSON.parse(localStorage.getItem('user'));
+  }
 }

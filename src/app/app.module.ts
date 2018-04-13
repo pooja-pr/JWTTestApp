@@ -16,7 +16,9 @@ import { SignupComponent } from './signup/signup.component';
 
 import { SignupService } from './signup/signup.service';
 import { LoginService } from './login/login.service';
+import { ToDoService } from './todo/todo.service';
 import { TodoComponent } from './todo/todo.component';
+import { AppService } from './app.service';
 
 const appRoutes: Routes = [
   {
@@ -70,7 +72,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [SignupService, LoginService],
+  providers: [SignupService, LoginService, ToDoService, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
