@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^4.4.6",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
@@ -23,8 +24,10 @@
     "body-parser": "^1.18.2",
     "core-js": "^2.4.1",
     "express": "^4.16.3",
-    "morgan": "^1.9.0",
+    "jsonwebtoken": "^8.2.1",
     "mongodb": "^2.2.28",
+    "morgan": "^1.9.0",
+    "ng2-toastr": "^4.1.2",
     "rxjs": "^5.1.0",
     "serve-favicon": "^2.5.0",
     "zone.js": "^0.8.4"

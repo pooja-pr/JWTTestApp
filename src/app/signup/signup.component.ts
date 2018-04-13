@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SignupService } from './signup.service';
 import { UserModel } from './user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,14 +11,17 @@ import { UserModel } from './user.model';
 })
 export class SignupComponent implements OnInit {
   private user: UserModel;
-  constructor(private userService: SignupService) { }
+  constructor(private userService: SignupService,
+    private router: Router) { }
 
   ngOnInit() {
     this.user = new UserModel();
   }
 
   createUser() {
-    this.userService.createUser(this.user);
+    this.userService.createUser(this.user).subscribe(result => {
+      this.router.navigate(['./login']);
+    });
   }
 
 }

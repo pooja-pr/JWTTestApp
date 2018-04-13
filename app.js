@@ -8,6 +8,7 @@ var app = module.exports = express();
 var server = http.createServer(app);
 var login = require('./routes/login');
 var signup = require('./routes/signup');
+var auth = require('./auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,9 +33,12 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Auth validate
+app.use('/api', auth.validate);
+
 // Routes
 app.use('/login', login);
-app.use('/signup',signup)
+app.use('/signup', signup)
 
 // For UI
 app.use(express.static('public'));

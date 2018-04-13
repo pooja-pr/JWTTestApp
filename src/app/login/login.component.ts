@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+
+import { UsersModel } from './users.model';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +13,25 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
-
-  constructor(private http: HttpClient) { }
+  private user: UsersModel;
+  constructor(private http: HttpClient,
+    private loginService: LoginService,
+    private toastr: ToastsManager,
+    private router: Router) { }
 
   ngOnInit() {
+    this.user = new UsersModel();
+  }
+
+  login() {
+    this.loginService.login(this.user).subscribe(userObj => {
+      if (!userObj.error) {
+        this.user = userObj;
+        this.router.navigate(['./todo']);
+      } else {
+        this.toastr.error('Login failed');
+      }
+    });
   }
 
 }

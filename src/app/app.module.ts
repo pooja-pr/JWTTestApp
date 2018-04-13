@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +15,8 @@ import { SignupComponent } from './signup/signup.component';
 //Import services
 
 import { SignupService } from './signup/signup.service';
+import { LoginService } from './login/login.service';
+import { TodoComponent } from './todo/todo.component';
 
 const appRoutes: Routes = [
   {
@@ -34,6 +38,16 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: '/signup',
     pathMatch: 'full'
+  },
+  {
+    path: 'todo',
+    component: TodoComponent,
+    data: { title: 'ToDo' }
+  },
+  {
+    path: 'todo',
+    redirectTo: '/todo',
+    pathMatch: 'full'
   }
 ];
 
@@ -41,10 +55,13 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastModule.forRoot(),
     FormsModule,
     HttpModule,
     HttpClientModule,
@@ -53,7 +70,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [SignupService],
+  providers: [SignupService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
