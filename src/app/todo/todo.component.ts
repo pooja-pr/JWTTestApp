@@ -15,6 +15,7 @@ import { AppService } from '../app.service';
 export class TodoComponent implements OnInit {
   todo: ToDoModel;
   todoList: Object[];
+  doneList: ['abc'];
 
   constructor(private http: HttpClient,
     private todoService: ToDoService,
@@ -44,7 +45,17 @@ export class TodoComponent implements OnInit {
     this.todoService.getToDoList().subscribe(res => {
       if (res) {
         this.todoList = res;
-        console.log("get to do", +typeof res)
+      } else {
+        this.toastr.error('Something went wrong');
+      }
+    });
+  }
+
+  markComplete() {
+    this.todoService.updateToDo(this.todoList).subscribe(res => {
+      if (res['error'] === false) {
+        this.getToDo();
+        this.toastr.success('ToDo updated successfully');
       } else {
         this.toastr.error('Something went wrong');
       }

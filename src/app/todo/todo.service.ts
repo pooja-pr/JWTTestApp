@@ -33,6 +33,13 @@ export class ToDoService {
             .map(this.extractResponse)
             .catch(this.handleError);
     }
+    updateToDo(data): Observable<ToDoModel> {
+        const headers = new Headers();
+        headers.append('x-access-token', this.user.token);
+        return this.http.post('http://localhost:3000/api/todo/update', data, { headers: headers })
+            .map(this.extractResponse)
+            .catch(this.handleError);
+    }
     getToDoList(): Observable<ToDoModel[]> {
         const headers = new Headers();
         headers.append('x-access-token', this.user.token);
