@@ -19,6 +19,7 @@ import { LoginService } from './login/login.service';
 import { ToDoService } from './todo/todo.service';
 import { TodoComponent } from './todo/todo.component';
 import { AppService } from './app.service';
+import { AuthGaurd } from './auth.service';
 
 const appRoutes: Routes = [
   {
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
   {
     path: 'todo',
     component: TodoComponent,
-    data: { title: 'ToDo' }
+    data: { title: 'ToDo' },
+    canActivate : [AuthGaurd]
   },
   {
     path: 'todo',
@@ -72,7 +74,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [SignupService, LoginService, ToDoService, AppService],
+  providers: [SignupService, LoginService, ToDoService, AppService, AuthGaurd],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
