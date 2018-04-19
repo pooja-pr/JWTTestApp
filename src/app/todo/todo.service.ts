@@ -27,6 +27,7 @@ export class ToDoService {
         return this.map;
     }
     createToDo(data): Observable<ToDoModel> {
+        console.log(data)
         const headers = new Headers();
         headers.append('x-access-token', this.user.token);
         return this.http.post('http://localhost:3000/api/todo/add', data, { headers: headers })

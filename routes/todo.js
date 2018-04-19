@@ -11,6 +11,8 @@ router.post('/add', function (req, res, next) {
     MongoClient.connect(dbUrl, (err, db) => {
         if (req.body._id) {
             req.body._id = mongo.ObjectId(req.body._id)
+        } else {
+            req.body._id = mongo.ObjectId();
         }
         db.collection('todo').update({ _id: req.body._id }, req.body, { upsert: true }).then((result) => {
             res.json(util.success(result, "Todo added"));
