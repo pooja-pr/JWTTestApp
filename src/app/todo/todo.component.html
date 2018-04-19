@@ -11,13 +11,20 @@
           <button type="submit" class="btn btn-success" [disabled]="!todoForm.form.valid">Add</button>
         </div>
         <div class="form-group">
+          To Do:
+          <br>
           <label *ngFor="let t of todoList">
-            <input type="checkbox" [(ngModel)]="t.completed" name="todo"> {{t.title}}
+            <input type="checkbox" [(ngModel)]="t.completed" name="todo" (ngModelChange)="markComplete($event,t)"> {{t.title}}
             <br>
           </label>
         </div>
         <div class="form-group">
-          <button type="button" class="btn btn-success" (click)="markComplete()">Mark as Completed</button>
+          Completed Tasks:
+          <br>
+          <label *ngFor="let c of completedList">
+            <input type="checkbox" [(ngModel)]="c.completed" name="done" (ngModelChange)="markComplete($event,c)"> {{c.title}}
+            <br>
+          </label>
         </div>
       </form>
     </div>

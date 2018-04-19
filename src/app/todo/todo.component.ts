@@ -15,7 +15,7 @@ import { AppService } from '../app.service';
 export class TodoComponent implements OnInit {
   todo: ToDoModel;
   todoList: Object[];
-  doneList: ['abc'];
+  completedList: Object[];
 
   constructor(private http: HttpClient,
     private todoService: ToDoService,
@@ -27,6 +27,9 @@ export class TodoComponent implements OnInit {
     this.todo = new ToDoModel();
     this.todoService.getToDoList().subscribe(res => {
       this.todoList = res;
+    });
+    this.todoService.getCompletedTasks().subscribe(res => {
+      this.completedList = res;
     });
   }
 
@@ -51,10 +54,21 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  markComplete() {
-    this.todoService.updateToDo(this.todoList).subscribe(res => {
+  getCompletedTasks() {
+    this.todoService.getCompletedTasks().subscribe(res => {
+      if (res) {
+        this.completedList = res;
+      } else {
+        this.toastr.error('Something went wrong');
+      }
+    });
+  }
+
+  markComplete(event, data) {
+    this.todoService.createToDo(data).subscribe(res => {
       if (res['error'] === false) {
         this.getToDo();
+        this.getCompletedTasks();
         this.toastr.success('ToDo updated successfully');
       } else {
         this.toastr.error('Something went wrong');
